@@ -1,8 +1,59 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Головна сторінка";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="jumbotron bg-primary text-white rounded p-5 mb-4">
+                <h1 class="display-4">Ласкаво просимо до медичної системи "Клініка"</h1>
+                <p class="lead">Електронна система управління медичними записами, пацієнтами та лікарями</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-3 mb-4">
+            <div class="card h-100">
+                <div class="card-body text-center">
+                    <i class="fas fa-users fa-3x text-primary mb-3"></i>
+                    <h5 class="card-title">Пацієнти</h5>
+                    <p class="card-text">Управління інформацією про пацієнтів клініки</p>
+                    <a asp-controller="Patients" asp-action="Index" class="btn btn-primary">Перейти</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 mb-4">
+            <div class="card h-100">
+                <div class="card-body text-center">
+                    <i class="fas fa-user-md fa-3x text-success mb-3"></i>
+                    <h5 class="card-title">Лікарі</h5>
+                    <p class="card-text">Управління інформацією про лікарів та їх спеціалізації</p>
+                    <a asp-controller="Doctors" asp-action="Index" class="btn btn-success">Перейти</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 mb-4">
+            <div class="card h-100">
+                <div class="card-body text-center">
+                    <i class="fas fa-calendar-alt fa-3x text-warning mb-3"></i>
+                    <h5 class="card-title">Записи на прийом</h5>
+                    <p class="card-text">Планування та управління записами на прийом</p>
+                    <a asp-controller="Appointments" asp-action="Index" class="btn btn-warning">Перейти</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 mb-4">
+            <div class="card h-100">
+                <div class="card-body text-center">
+                    <i class="fas fa-file-medical fa-3x text-info mb-3"></i>
+                    <h5 class="card-title">Медичні записи</h5>
+                    <p class="card-text">Ведення історії хвороби та медичних записів</p>
+                    <a asp-controller="MedicalRecords" asp-action="Index" class="btn btn-info">Перейти</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
 </div>

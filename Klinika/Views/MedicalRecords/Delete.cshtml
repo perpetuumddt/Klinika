@@ -1,0 +1,80 @@
+@model Klinika.Models.MedicalRecord
+
+@{
+    ViewData["Title"] = "Видалити медичну запис";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title text-danger">
+                        <i class="fas fa-exclamation-triangle"></i> Підтвердження видалення
+                    </h3>
+                </div>
+                <div class="card-body">
+                    <div class="alert alert-warning">
+                        <h5>Ви впевнені, що хочете видалити цю медичну запис?</h5>
+                        <p>Цю дію неможливо скасувати.</p>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h5>Основна інформація:</h5>
+                            <table class="table table-borderless">
+                                <tr>
+                                    <td><strong>Пацієнт:</strong></td>
+                                    <td>@Html.DisplayFor(model => model.Patient.FullName)</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Лікар:</strong></td>
+                                    <td>@Html.DisplayFor(model => model.Doctor.FullName)</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Дата запису:</strong></td>
+                                    <td>@Html.DisplayFor(model => model.RecordDate)</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Діагноз:</strong></td>
+                                    <td>@Html.DisplayFor(model => model.Diagnosis)</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="row mt-3">
+                        <div class="col-12">
+                            <h5>Медична інформація:</h5>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <strong>Симптоми:</strong>
+                                    <p class="mt-2">@Html.DisplayFor(model => model.Symptoms)</p>
+                                </div>
+                                <div class="col-md-6">
+                                    <strong>Лікування:</strong>
+                                    <p class="mt-2">@Html.DisplayFor(model => model.Treatment)</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <form asp-action="Delete" method="post" class="mt-4">
+                        <input type="hidden" asp-for="Id" />
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-danger">
+                                <i class="fas fa-trash"></i> Так, видалити запис
+                            </button>
+                            <a asp-action="Details" asp-route-id="@Model.Id" class="btn btn-info">
+                                <i class="fas fa-eye"></i> Перегляд
+                            </a>
+                            <a asp-action="Index" class="btn btn-secondary">
+                                <i class="fas fa-arrow-left"></i> Скасувати
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

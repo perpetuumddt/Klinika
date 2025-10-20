@@ -1,0 +1,84 @@
+@model IEnumerable<Klinika.Models.MedicalRecord>
+
+@{
+    ViewData["Title"] = "Медичні записи";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h3 class="card-title">
+                        @if (ViewBag.PatientName != null)
+                        {
+                            <text>Медичні записи пацієнта: @ViewBag.PatientName</text>
+                        }
+                        else
+                        {
+                            <text>Список медичних записів</text>
+                        }
+                    </h3>
+                    <a asp-action="Create" asp-route-patientId="@ViewBag.PatientId" class="btn btn-primary">
+                        <i class="fas fa-plus"></i> Новий запис
+                    </a>
+                </div>
+                <div class="card-body">
+                    @if (ViewBag.PatientName != null)
+                    {
+                        <div class="alert alert-info">
+                            <i class="fas fa-info-circle"></i> Показані медичні записи для пацієнта: <strong>@ViewBag.PatientName</strong>
+                            <a asp-action="Index" class="btn btn-sm btn-outline-primary ms-2">
+                                <i class="fas fa-list"></i> Показати всі записи
+                            </a>
+                        </div>
+                    }
+                    <div class="table-responsive">
+                        <table class="table table-striped table-hover">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th>Дата запису</th>
+                                    @if (ViewBag.PatientName == null)
+                                    {
+                                        <th>Пацієнт</th>
+                                    }
+                                    <th>Лікар</th>
+                                    <th>Діагноз</th>
+                                    <th>Дії</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.OrderByDescending(mr => mr.RecordDate))
+                                {
+                                    <tr>
+                                        <td>@item.RecordDate.ToString("dd.MM.yyyy")</td>
+                                        @if (ViewBag.PatientName == null)
+                                        {
+                                            <td>@Html.DisplayFor(modelItem => item.Patient.FullName)</td>
+                                        }
+                                        <td>@Html.DisplayFor(modelItem => item.Doctor.FullName)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.Diagnosis)</td>
+                                        
+                                        <td>
+                                            <div class="btn-group" role="group">
+                                                <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-info btn-sm">
+                                                    <i class="fas fa-eye"></i> Перегляд
+                                                </a>
+                                                <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning btn-sm">
+                                                    <i class="fas fa-edit"></i> Змінити
+                                                </a>
+                                                <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-sm">
+                                                    <i class="fas fa-trash"></i> Видалити
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

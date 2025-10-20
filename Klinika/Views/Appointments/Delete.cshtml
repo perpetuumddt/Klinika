@@ -1,0 +1,97 @@
+@model Klinika.Models.Appointment
+
+@{
+    ViewData["Title"] = "Видалити запис на прийом";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title text-danger">
+                        <i class="fas fa-exclamation-triangle"></i> Підтвердження видалення
+                    </h3>
+                </div>
+                <div class="card-body">
+                    <div class="alert alert-warning">
+                        <h5>Ви впевнені, що хочете видалити цей запис на прийом?</h5>
+                        <p>Цю дію неможливо скасувати.</p>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h5>Інформація про запис:</h5>
+                            <table class="table table-borderless">
+                                <tr>
+                                    <td><strong>Пацієнт:</strong></td>
+                                    <td>@Html.DisplayFor(model => model.Patient.FullName)</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Лікар:</strong></td>
+                                    <td>@Html.DisplayFor(model => model.Doctor.FullName)</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Дата і час:</strong></td>
+                                    <td>@Model.AppointmentDateTime.ToString("dd.MM.yyyy HH:mm")</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Тип прийому:</strong></td>
+                                    <td>@Html.DisplayFor(model => model.AppointmentType)</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Статус:</strong></td>
+                                    <td>
+                                        <span class="badge bg-@(Model.Status switch {
+                                            AppointmentStatus.Scheduled => "primary",
+                                            AppointmentStatus.Confirmed => "info",
+                                            AppointmentStatus.Completed => "success",
+                                            AppointmentStatus.Cancelled => "danger",
+                                            AppointmentStatus.NotVisited => "secondary",
+                                            _ => "secondary"
+                                        })">
+                                            @(Model.Status switch {
+                                                AppointmentStatus.Scheduled => "В обробці",
+                                                AppointmentStatus.Confirmed => "Підтверджений",
+                                                AppointmentStatus.Completed => "Виконаний",
+                                                AppointmentStatus.Cancelled => "Відмінений",
+                                                AppointmentStatus.NotVisited => "Не з'явився",
+                                                _ => "Невідомий"
+                                            })
+                                        </span>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="col-md-6">
+                            <h5>Додаткова інформація:</h5>
+                            <div class="mb-3">
+                                <strong>Скарги:</strong>
+                                <p class="mt-2">@Html.DisplayFor(model => model.Complaints)</p>
+                            </div>
+                            <div class="mb-3">
+                                <strong>Примітки:</strong>
+                                <p class="mt-2">@Html.DisplayFor(model => model.Notes)</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <form asp-action="Delete" method="post" class="mt-4">
+                        <input type="hidden" asp-for="Id" />
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-danger">
+                                <i class="fas fa-trash"></i> Так, видалити запис
+                            </button>
+                            <a asp-action="Details" asp-route-id="@Model.Id" class="btn btn-info">
+                                <i class="fas fa-eye"></i> Перегляд
+                            </a>
+                            <a asp-action="Index" class="btn btn-secondary">
+                                <i class="fas fa-arrow-left"></i> Скасувати
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

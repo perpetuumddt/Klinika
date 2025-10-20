@@ -1,9 +1,22 @@
+using Microsoft.EntityFrameworkCore;
+using Klinika.Data;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
+// Add Entity Framework
+builder.Services.AddDbContext<KlinikaDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
 var app = builder.Build();
+
+// Инициализация БД (миграции могут применяться отдельно)
+using (var scope = app.Services.CreateScope())
+{
+    var context = scope.ServiceProvider.GetRequiredService<KlinikaDbContext>();
+}
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

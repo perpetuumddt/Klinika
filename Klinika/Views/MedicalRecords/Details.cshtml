@@ -1,0 +1,83 @@
+@model Klinika.Models.MedicalRecord
+
+@{
+    ViewData["Title"] = "Деталі медичної записи";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h3 class="card-title">Медичний запис</h3>
+                    <div>
+                        <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">
+                            <i class="fas fa-edit"></i> Змінити
+                        </a>
+                        <a asp-action="Index" class="btn btn-secondary">
+                            <i class="fas fa-arrow-left"></i> Назад до списку
+                        </a>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h5>Основна інформація</h5>
+                            <table class="table table-borderless">
+                                <tr>
+                                    <td><strong>Пацієнт:</strong></td>
+                                    <td>@Html.DisplayFor(model => model.Patient.FullName)</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Лікар:</strong></td>
+                                    <td>@Html.DisplayFor(model => model.Doctor.FullName)</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Дата запису:</strong></td>
+                                    <td>@Html.DisplayFor(model => model.RecordDate)</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Наступний візит:</strong></td>
+                                    <td>@Html.DisplayFor(model => model.NextVisitDate)</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="row mt-4">
+                        <div class="col-md-6">
+                            <h5>Медична інформація</h5>
+                            <div class="mb-3">
+                                <strong>Діагноз:</strong>
+                                <p class="mt-2">@Html.DisplayFor(model => model.Diagnosis)</p>
+                            </div>
+                            <div class="mb-3">
+                                <strong>Симптоми:</strong>
+                                <p class="mt-2">@Html.DisplayFor(model => model.Symptoms)</p>
+                            </div>
+                            <div class="mb-3">
+                                <strong>Лікування:</strong>
+                                <p class="mt-2">@Html.DisplayFor(model => model.Treatment)</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <h5>Призначення та рекомендації</h5>
+                            <div class="mb-3">
+                                <strong>Призначення:</strong>
+                                <p class="mt-2">@Html.DisplayFor(model => model.Prescriptions)</p>
+                            </div>
+                            <div class="mb-3">
+                                <strong>Рекомендації:</strong>
+                                <p class="mt-2">@Html.DisplayFor(model => model.Recommendations)</p>
+                            </div>
+                            <div class="mb-3">
+                                <strong>Примітки:</strong>
+                                <p class="mt-2">@Html.DisplayFor(model => model.Notes)</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

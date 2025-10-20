@@ -1,0 +1,81 @@
+@model IEnumerable<Klinika.Models.Appointment>
+
+@{
+    ViewData["Title"] = "Записи на прийом";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h3 class="card-title">Список записів на прийом</h3>
+                    <a asp-action="Create" class="btn btn-primary">
+                        <i class="fas fa-plus"></i> Новий запис
+                    </a>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-striped table-hover">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th>Дата і час</th>
+                                    <th>Пацієнт</th>
+                                    <th>Лікар</th>
+                                    <th>Тип прийому</th>
+                                    <th>Статус</th>
+                                    <th>Тривалість</th>
+                                    <th>Дії</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.OrderBy(a => a.AppointmentDateTime))
+                                {
+                                    <tr>
+                                        <td>@item.AppointmentDateTime.ToString("dd.MM.yyyy HH:mm")</td>
+                                        <td>@Html.DisplayFor(modelItem => item.Patient.FullName)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.Doctor.FullName)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.AppointmentType)</td>
+                                        <td>
+                                            <span class="badge bg-@(item.Status switch {
+                                                AppointmentStatus.Scheduled => "primary",
+                                                AppointmentStatus.Confirmed => "info",
+                                                AppointmentStatus.Completed => "success",
+                                                AppointmentStatus.Cancelled => "danger",
+                                                AppointmentStatus.NotVisited => "secondary",
+                                                _ => "secondary"
+                                            })">
+                                                @(item.Status switch {
+                                                    AppointmentStatus.Scheduled => "В обробці",
+                                                    AppointmentStatus.Confirmed => "Підтверджений",
+                                                    AppointmentStatus.Completed => "Виконаний",
+                                                    AppointmentStatus.Cancelled => "Відмінений",
+                                                    AppointmentStatus.NotVisited => "Не з'явився",
+                                                    _ => "Невідомий"
+                                                })
+                                            </span>
+                                        </td>
+                                        <td>@Html.DisplayFor(modelItem => item.DurationMinutes) хв</td>
+                                        <td>
+                                            <div class="btn-group" role="group">
+                                                <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-info btn-sm">
+                                                    <i class="fas fa-eye"></i> Перегляд
+                                                </a>
+                                                <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning btn-sm">
+                                                    <i class="fas fa-edit"></i> Змінити
+                                                </a>
+                                                <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-sm">
+                                                    <i class="fas fa-trash"></i> Видалити
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

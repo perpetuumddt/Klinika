@@ -20,7 +20,7 @@ namespace Klinika.Controllers
             return View(await _context.Patients.ToListAsync());
         }
 
-        // GET: Patients/Details/5
+        // GET: Patients/Details/
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -63,7 +63,7 @@ namespace Klinika.Controllers
             return View(patient);
         }
 
-        // GET: Patients/Edit/5
+        // GET: Patients/Edit/
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -79,7 +79,7 @@ namespace Klinika.Controllers
             return View(patient);
         }
 
-        // POST: Patients/Edit/5
+        // POST: Patients/Edit/
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,FirstName,LastName,MiddleName,DateOfBirth,Gender,PhoneNumber,Email,Address,InsuranceNumber,RegistrationDate")] Patient patient)
@@ -112,7 +112,7 @@ namespace Klinika.Controllers
             return View(patient);
         }
 
-        // GET: Patients/Delete/5
+        // GET: Patients/Delete/
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -130,7 +130,7 @@ namespace Klinika.Controllers
             return View(patient);
         }
 
-        // POST: Patients/Delete/5
+        // POST: Patients/Delete/
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

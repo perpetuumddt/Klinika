@@ -43,7 +43,7 @@ namespace Klinika.Controllers
             return View(medicalRecords);
         }
 
-        // GET: MedicalRecords/Details/5
+        // GET: MedicalRecords/Details/
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)

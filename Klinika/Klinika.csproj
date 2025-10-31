@@ -5,6 +5,13 @@
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
         <DockerDefaultTargetOS>Windows</DockerDefaultTargetOS>
+
+        <IsPackable>true</IsPackable>
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+		<PackageId>KlinikaApp</PackageId>
+		<Version>0.0.1</Version>
+		<Authors>DT</Authors>
+		<Description>ASP.NET Core web app for medical purposes</Description>
     </PropertyGroup>
 
     <ItemGroup>

@@ -86,37 +86,30 @@ namespace Klinika.Controllers
         // POST: MedicalRecords/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("PatientId,DoctorId,RecordDate,Diagnosis,Symptoms,Treatment,Prescriptions,Recommendations,Temperature,BloodPressure,Pulse,Weight,Height,Notes,NextVisitDate")] MedicalRecord medicalRecord)
+        public async Task<IActionResult> Create([Bind("PatientId,DoctorId,RecordDate,Diagnosis,Symptoms,Treatment,Prescriptions,Recommendations,Notes,NextVisitDate")] MedicalRecord medicalRecord)
         {
             if (ModelState.IsValid)
             {
                 var patientExists = await _context.Patients.AnyAsync(p => p.Id == medicalRecord.PatientId);
                 var doctorExists = await _context.Doctors.AnyAsync(d => d.Id == medicalRecord.DoctorId && d.IsActive);
+
                 if (!patientExists)
-                {
                     ModelState.AddModelError("PatientId", "Пацієнт не знайдений");
-                }
                 if (!doctorExists)
-                {
                     ModelState.AddModelError("DoctorId", "Лікар не знайдений або не активний");
-                }
+
                 if (ModelState.IsValid)
                 {
-                    try
-                    {
-                        _context.Add(medicalRecord);
-                        await _context.SaveChangesAsync();
-                        return RedirectToAction(nameof(Index));
-                    }
-                    catch (DbUpdateException)
-                    {
-                        ModelState.AddModelError(string.Empty, "Не вдалося зберегти запис. Спробуйте ще раз.");
-                    }
+                    _context.Add(medicalRecord);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
                 }
             }
+
             PopulateDropdowns(medicalRecord.PatientId, medicalRecord.DoctorId);
             return View(medicalRecord);
         }
+
 
         // GET: MedicalRecords/Edit/
         public async Task<IActionResult> Edit(int? id)
@@ -209,6 +202,11 @@ namespace Klinika.Controllers
         private bool MedicalRecordExists(int id)
         {
             return _context.MedicalRecords.Any(e => e.Id == id);
+        }
+
+        public async Task<ViewResult> Index()
+        {
+            throw new NotImplementedException();
         }
     }
 }

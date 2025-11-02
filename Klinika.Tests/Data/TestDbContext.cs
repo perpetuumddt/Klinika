@@ -1,6 +1,9 @@
-using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using Klinika.Data;
 using Klinika.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Klinika.Tests.Data
 {
@@ -9,16 +12,14 @@ namespace Klinika.Tests.Data
         public static KlinikaDbContext CreateInMemoryContext()
         {
             var options = new DbContextOptionsBuilder<KlinikaDbContext>()
-                .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
+                .UseInMemoryDatabase(Guid.NewGuid().ToString())
                 .Options;
 
             var context = new KlinikaDbContext(options);
-            
             SeedTestData(context);
-            
             return context;
         }
-        
+
         private static void SeedTestData(KlinikaDbContext context)
         {
             var patients = new List<Patient>
@@ -52,7 +53,7 @@ namespace Klinika.Tests.Data
                     RegistrationDate = DateTime.Now.AddYears(-1)
                 }
             };
-            
+
             var doctors = new List<Doctor>
             {
                 new Doctor
@@ -89,11 +90,44 @@ namespace Klinika.Tests.Data
                 }
             };
 
+            var appointments = new List<Appointment>
+            {
+                new Appointment
+                {
+                    Id = 1,
+                    PatientId = 1,
+                    DoctorId = 1,
+                    AppointmentDateTime = DateTime.Now.AddDays(1),
+                    DurationMinutes = 30,
+                    Status = AppointmentStatus.Scheduled
+                }
+            };
+
+            var medicalRecords = new List<MedicalRecord>
+            {
+                new MedicalRecord
+                {
+                    Id = 1,
+                    PatientId = 1,
+                    DoctorId = 1,
+                    Diagnosis = "ГРВІ",
+                    Symptoms = "Температура, кашель",
+                    Treatment = "Режим, пиття",
+                    Prescriptions = "Парацетамол",
+                    Recommendations = "Відпочинок",
+                    Notes = "Покращення через 3 дні",
+                    RecordDate = DateTime.Today,
+                    NextVisitDate = DateTime.Today.AddDays(7)
+                }
+            };
+
             context.Patients.AddRange(patients);
             context.Doctors.AddRange(doctors);
+            context.Appointments.AddRange(appointments);
+            context.MedicalRecords.AddRange(medicalRecords);
             context.SaveChanges();
         }
-        
+
         public static KlinikaDbContext CreateContextWithData(
             IEnumerable<Patient>? patients = null,
             IEnumerable<Doctor>? doctors = null,
@@ -101,7 +135,7 @@ namespace Klinika.Tests.Data
             IEnumerable<MedicalRecord>? medicalRecords = null)
         {
             var options = new DbContextOptionsBuilder<KlinikaDbContext>()
-                .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
+                .UseInMemoryDatabase(Guid.NewGuid().ToString())
                 .Options;
 
             var context = new KlinikaDbContext(options);

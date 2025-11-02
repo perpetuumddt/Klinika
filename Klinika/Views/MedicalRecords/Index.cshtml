@@ -51,7 +51,7 @@
                                 @foreach (var item in Model.OrderByDescending(mr => mr.RecordDate))
                                 {
                                     <tr>
-                                        <td>@item.RecordDate.ToString("dd.MM.yyyy")</td>
+                                        <td>@(item.RecordDate?.ToString("dd.MM.yyyy") ?? "—")</td>
                                         @if (ViewBag.PatientName == null)
                                         {
                                             <td>@Html.DisplayFor(modelItem => item.Patient.FullName)</td>

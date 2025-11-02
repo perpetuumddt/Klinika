@@ -8,10 +8,12 @@ namespace Klinika.Models
 
         [Required(ErrorMessage = "Пацієнт обов'язковий")]
         [Display(Name = "Пацієнт")]
+        [Range(1, int.MaxValue, ErrorMessage = "Пацієнт обов'язковий")]
         public int PatientId { get; set; }
 
         [Required(ErrorMessage = "Лікар обов'язковий")]
         [Display(Name = "Лікар")]
+        [Range(1, int.MaxValue, ErrorMessage = "Лікар обов'язковий")]
         public int DoctorId { get; set; }
 
         [Required(ErrorMessage = "Дата і час запису обов'язкові")]
@@ -41,7 +43,6 @@ namespace Klinika.Models
         [Display(Name = "Дата оновлення")]
         public DateTime? UpdatedDate { get; set; }
 
-        
         public virtual Patient? Patient { get; set; }
         public virtual Doctor? Doctor { get; set; }
     }

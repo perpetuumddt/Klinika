@@ -35,42 +35,6 @@
       <Content Include="..\Klinika.Tests\Klinika.Tests.sln.DotSettings.user">
         <Link>Klinika.Tests\Klinika.Tests.sln.DotSettings.user</Link>
       </Content>
-      <Content Include="..\Klinika.Tests\obj\Debug\net8.0\Klinika.Tests.AssemblyInfoInputs.cache">
-        <Link>Klinika.Tests\obj\Debug\net8.0\Klinika.Tests.AssemblyInfoInputs.cache</Link>
-      </Content>
-      <Content Include="..\Klinika.Tests\obj\Debug\net8.0\Klinika.Tests.assets.cache">
-        <Link>Klinika.Tests\obj\Debug\net8.0\Klinika.Tests.assets.cache</Link>
-      </Content>
-      <Content Include="..\Klinika.Tests\obj\Debug\net8.0\Klinika.Tests.csproj.AssemblyReference.cache">
-        <Link>Klinika.Tests\obj\Debug\net8.0\Klinika.Tests.csproj.AssemblyReference.cache</Link>
-      </Content>
-      <Content Include="..\Klinika.Tests\obj\Debug\net8.0\Klinika.Tests.GeneratedMSBuildEditorConfig.editorconfig">
-        <Link>Klinika.Tests\obj\Debug\net8.0\Klinika.Tests.GeneratedMSBuildEditorConfig.editorconfig</Link>
-      </Content>
-      <Content Include="..\Klinika.Tests\obj\Klinika.Tests.csproj.nuget.dgspec.json">
-        <Link>Klinika.Tests\obj\Klinika.Tests.csproj.nuget.dgspec.json</Link>
-      </Content>
-      <Content Include="..\Klinika.Tests\obj\Klinika.Tests.csproj.nuget.g.props">
-        <Link>Klinika.Tests\obj\Klinika.Tests.csproj.nuget.g.props</Link>
-      </Content>
-      <Content Include="..\Klinika.Tests\obj\Klinika.Tests.csproj.nuget.g.targets">
-        <Link>Klinika.Tests\obj\Klinika.Tests.csproj.nuget.g.targets</Link>
-      </Content>
-      <Content Include="..\Klinika.Tests\obj\project.assets.json">
-        <Link>Klinika.Tests\obj\project.assets.json</Link>
-      </Content>
-      <Content Include="..\Klinika.Tests\obj\project.nuget.cache">
-        <Link>Klinika.Tests\obj\project.nuget.cache</Link>
-      </Content>
-      <Content Include="..\Klinika.Tests\obj\project.packagespec.json">
-        <Link>Klinika.Tests\obj\project.packagespec.json</Link>
-      </Content>
-      <Content Include="..\Klinika.Tests\obj\rider.project.model.nuget.info">
-        <Link>Klinika.Tests\obj\rider.project.model.nuget.info</Link>
-      </Content>
-      <Content Include="..\Klinika.Tests\obj\rider.project.restore.info">
-        <Link>Klinika.Tests\obj\rider.project.restore.info</Link>
-      </Content>
     </ItemGroup>
 
     <ItemGroup>
@@ -81,26 +45,21 @@
       <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.0" />
       <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="9.0.0" />
       <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.0" />
+      <PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.0.0" />
       <PackageReference Include="Moq" Version="4.20.72" />
       <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
       <PackageReference Include="xunit" Version="2.9.3" />
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="..\Klinika.Tests\bin\Debug\net8.0\">
-        <Link>Klinika.Tests\bin\Debug\net8.0</Link>
-      </Folder>
-      <Folder Include="..\Klinika.Tests\obj\Debug\net8.0\refint\">
-        <Link>Klinika.Tests\obj\Debug\net8.0\refint</Link>
-      </Folder>
-      <Folder Include="..\Klinika.Tests\obj\Debug\net8.0\ref\">
-        <Link>Klinika.Tests\obj\Debug\net8.0\ref</Link>
-      </Folder>
-    </ItemGroup>
-
-    <ItemGroup>
+      <Compile Include="..\Klinika.Tests\Controllers\AppointmentControllerTest.cs">
+        <Link>Klinika.Tests\Controllers\AppointmentControllerTest.cs</Link>
+      </Compile>
       <Compile Include="..\Klinika.Tests\Controllers\DoctorControllerTest.cs">
         <Link>Klinika.Tests\Controllers\DoctorControllerTest.cs</Link>
+      </Compile>
+      <Compile Include="..\Klinika.Tests\Controllers\MedicalRecordsControllerTest.cs">
+        <Link>Klinika.Tests\Controllers\MedicalRecordsControllerTest.cs</Link>
       </Compile>
       <Compile Include="..\Klinika.Tests\Controllers\PatientControllerTest.cs">
         <Link>Klinika.Tests\Controllers\PatientControllerTest.cs</Link>
@@ -111,17 +70,14 @@
       <Compile Include="..\Klinika.Tests\Models\AppointmentTest.cs">
         <Link>Klinika.Tests\Models\AppointmentTest.cs</Link>
       </Compile>
+      <Compile Include="..\Klinika.Tests\Models\DoctorTests.cs">
+        <Link>Klinika.Tests\Models\DoctorTests.cs</Link>
+      </Compile>
+      <Compile Include="..\Klinika.Tests\Models\MedicalRecordTests.cs">
+        <Link>Klinika.Tests\Models\MedicalRecordTests.cs</Link>
+      </Compile>
       <Compile Include="..\Klinika.Tests\Models\PatientTest.cs">
         <Link>Klinika.Tests\Models\PatientTest.cs</Link>
-      </Compile>
-      <Compile Include="..\Klinika.Tests\obj\Debug\net8.0\.NETCoreApp,Version=v8.0.AssemblyAttributes.cs">
-        <Link>Klinika.Tests\obj\Debug\net8.0\.NETCoreApp,Version=v8.0.AssemblyAttributes.cs</Link>
-      </Compile>
-      <Compile Include="..\Klinika.Tests\obj\Debug\net8.0\Klinika.Tests.AssemblyInfo.cs">
-        <Link>Klinika.Tests\obj\Debug\net8.0\Klinika.Tests.AssemblyInfo.cs</Link>
-      </Compile>
-      <Compile Include="..\Klinika.Tests\obj\Debug\net8.0\Klinika.Tests.GlobalUsings.g.cs">
-        <Link>Klinika.Tests\obj\Debug\net8.0\Klinika.Tests.GlobalUsings.g.cs</Link>
       </Compile>
     </ItemGroup>
 

@@ -1,8 +1,8 @@
 using System.ComponentModel.DataAnnotations;
 using FluentAssertions;
-using Klinika.Models;
+using Xunit;
 
-namespace Klinika.Tests.Models
+namespace Klinika.Models
 {
     public class PatientTests
     {

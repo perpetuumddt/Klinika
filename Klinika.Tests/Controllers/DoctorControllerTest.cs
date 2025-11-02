@@ -1,12 +1,12 @@
 using FluentAssertions;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Klinika.Controllers;
+using Klinika.Data;
 using Klinika.Models;
 using Klinika.Tests.Data;
-using Klinika.Data;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Xunit;
 
-namespace Klinika.Tests.Controllers
+namespace Klinika.Controllers
 {
     public class DoctorsControllerTests : IDisposable
     {
@@ -98,7 +98,7 @@ namespace Klinika.Tests.Controllers
             result.Should().BeOfType<RedirectToActionResult>();
             
             var updated = await _context.Doctors.FindAsync(doctor.Id);
-            updated.Specialization.Should().Be("Оновлена спеціалізація");
+            updated?.Specialization.Should().Be("Оновлена спеціалізація");
         }
 
         [Fact]
@@ -113,8 +113,8 @@ namespace Klinika.Tests.Controllers
             // Assert
             result.Should().BeOfType<ViewResult>();
             var viewResult = result as ViewResult;
-            var model = viewResult.Model as Doctor;
-            model.Id.Should().Be(doctor.Id);
+            var model = viewResult?.Model as Doctor;
+            model?.Id.Should().Be(doctor.Id);
         }
 
         [Fact]
@@ -168,9 +168,9 @@ namespace Klinika.Tests.Controllers
 
             // Assert
             var viewResult = result as ViewResult;
-            var model = viewResult.Model as Doctor;
-            model.Appointments.Should().NotBeNull();
-            model.Appointments.Should().HaveCountGreaterThan(0);
+            var model = viewResult?.Model as Doctor;
+            model?.Appointments.Should().NotBeNull();
+            model?.Appointments.Should().HaveCountGreaterThan(0);
         }
 
         [Fact]
@@ -195,8 +195,8 @@ namespace Klinika.Tests.Controllers
             // Assert
             result.Should().BeOfType<ViewResult>();
             var viewResult = result as ViewResult;
-            var model = viewResult.Model as Doctor;
-            model.Id.Should().Be(doctor.Id);
+            var model = viewResult?.Model as Doctor;
+            model?.Id.Should().Be(doctor.Id);
         }
 
         [Fact]

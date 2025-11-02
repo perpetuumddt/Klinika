@@ -77,7 +77,7 @@
                                             @foreach (var record in Model.MedicalRecords.OrderByDescending(r => r.RecordDate).Take(5))
                                             {
                                                 <tr>
-                                                    <td>@record.RecordDate.ToString("dd.MM.yyyy")</td>
+                                                    <td>@(record.RecordDate?.ToString("dd.MM.yyyy") ?? "—")</td>
                                                     <td>@record.Doctor.FullName</td>
                                                     <td>@record.Diagnosis</td>
                                                     <td>

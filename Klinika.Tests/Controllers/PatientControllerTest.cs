@@ -1,12 +1,12 @@
 using FluentAssertions;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Klinika.Controllers;
 using Klinika.Data;
 using Klinika.Models;
 using Klinika.Tests.Data;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Xunit;
 
-namespace Klinika.Tests.Controllers
+namespace Klinika.Controllers
 {
     public class PatientsControllerTests : IDisposable
     {

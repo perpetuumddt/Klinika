@@ -10,13 +10,11 @@ Vagrant.configure("2") do |config|
   # SHARED PROVISIONING SCRIPT
   # ============================================================
   $shared_provision = <<-'SCRIPT'
-    set -e  # Exit on error
-    
     BAGET_PORT=$1
     OS_TYPE=$2
     
     # --------------------------------------------------------
-    # 1. Install Dependencies
+    # 1. Installing Dependencies
     # --------------------------------------------------------
     echo "=== Installing dependencies ==="
     if [ "$OS_TYPE" = "debian" ]; then
@@ -195,7 +193,9 @@ PROGCS
   # VIRTUAL MACHINES DEFINITION
   # ============================================================
 
-  # Ubuntu 22.04 (Primary - creates and publishes package)
+  # ============================================================
+  # Ubuntu
+  # ============================================================
   config.vm.define "ubuntu_vm", primary: true do |vm|
     vm.vm.box = "ubuntu/jammy64"
     vm.vm.hostname = "baget-ubuntu"
@@ -207,7 +207,9 @@ PROGCS
     vm.vm.provision "shell", inline: $shared_provision, args: ["5555", "ubuntu"]
   end
 
-  # Debian 12 (Tests package from Ubuntu)
+  # ============================================================
+  # Debian 12
+  # ============================================================
   config.vm.define "debian", autostart: false do |vm|
     vm.vm.box = "debian/bookworm64"
     vm.vm.hostname = "baget-debian"
@@ -215,7 +217,9 @@ PROGCS
     vm.vm.provision "shell", inline: $shared_provision, args: ["5556", "debian"]
   end
 
-  # CentOS 8 (Tests package from Ubuntu)
+  # ============================================================
+  # CentOS 8
+  # ============================================================
   config.vm.define "centos", autostart: false do |vm|
     vm.vm.box = "centos/8"
     vm.vm.hostname = "baget-centos"

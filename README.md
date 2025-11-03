@@ -65,12 +65,6 @@ An ASP.NET Core web application for managing medical system and databases includ
    dotnet run
    ```
 
-6. **Access the application**
-   
-   Open your browser and navigate to:
-   - HTTP: `http://localhost:5042`
-   - HTTPS: `https://localhost:7273`
-
 ## 📦 Dependencies
 
 ### Core Dependencies
@@ -120,11 +114,11 @@ The project includes Vagrant configuration for cross-platform testing and deploy
 
 ### Virtual Machines
 
-| VM | OS | Port |
+| VM | OS | Port | Link |
 |----|----|----|---------|
-| `ubuntu_vm` | Ubuntu 22.04 | 5555 |
-| `debian` | Debian 12 | 5556 |
-| `windows` | Windows Server 2022 | 5557 |
+| `ubuntu_vm` | Ubuntu 22.04 | 5555 | http://localhost:5555 |
+| `debian` | Debian 12 | 5556 | http://localhost:5556 |
+| `windows` | Windows Server 2022 | 5557 | http://localhost:5557 |
 
 ### Vagrant Commands
 

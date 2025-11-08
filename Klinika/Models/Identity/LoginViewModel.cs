@@ -1,14 +1,14 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace Klinika.Models;
+namespace Klinika.Models.Identity;
 
 public class LoginViewModel
 {
-    [Required(ErrorMessage = "Ім'я користувача або email обов'язкові")]
-    [Display(Name = "Ім'я користувача або Email")]
-    public string UsernameOrEmail { get; set; } = string.Empty;
+    [Required]
+    [Display(Name = "Email")]
+    public string Email { get; set; } = string.Empty;
 
-    [Required(ErrorMessage = "Пароль обов'язковий")]
+    [Required]
     [DataType(DataType.Password)]
     [Display(Name = "Пароль")]
     public string Password { get; set; } = string.Empty;

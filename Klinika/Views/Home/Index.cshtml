@@ -8,52 +8,132 @@
             <div class="jumbotron bg-primary text-white rounded p-5 mb-4">
                 <h1 class="display-4">Ласкаво просимо до медичної системи "Клініка"</h1>
                 <p class="lead">Електронна система управління медичними записами, пацієнтами та лікарями</p>
+                
+                @if (User.Identity?.IsAuthenticated == true)
+                {
+                    <hr class="my-4 bg-white" />
+                    <p class="lead">
+                        Вітаємо, <strong>@User.Identity.Name</strong>! 
+                        Ви увійшли до системи.
+                    </p>
+                    <a class="btn btn-light btn-lg" asp-controller="Patients" asp-action="Index">
+                        <i class="fas fa-play"></i> Почати роботу
+                    </a>
+                }
+                else
+                {
+                    <hr class="my-4 bg-white" />
+                    <p class="lead">
+                        Для доступу до системи, будь ласка, увійдіть або зареєструйтесь
+                    </p>
+                    <a class="btn btn-success btn-lg me-2" asp-controller="Account" asp-action="Register">
+                        <i class="fas fa-user-plus"></i> Реєстрація
+                    </a>
+                    <a class="btn btn-light btn-lg" asp-controller="Account" asp-action="Login">
+                        <i class="fas fa-sign-in-alt"></i> Увійти
+                    </a>
+                }
             </div>
         </div>
     </div>
 
-    <div class="row">
-        <div class="col-md-3 mb-4">
-            <div class="card h-100">
-                <div class="card-body text-center">
-                    <i class="fas fa-users fa-3x text-primary mb-3"></i>
-                    <h5 class="card-title">Пацієнти</h5>
-                    <p class="card-text">Управління інформацією про пацієнтів клініки</p>
-                    <a asp-controller="Patients" asp-action="Index" class="btn btn-primary">Перейти</a>
+    <!-- About Section -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Про систему</h3>
                 </div>
-            </div>
-        </div>
-        <div class="col-md-3 mb-4">
-            <div class="card h-100">
-                <div class="card-body text-center">
-                    <i class="fas fa-user-md fa-3x text-success mb-3"></i>
-                    <h5 class="card-title">Лікарі</h5>
-                    <p class="card-text">Управління інформацією про лікарів та їх спеціалізації</p>
-                    <a asp-controller="Doctors" asp-action="Index" class="btn btn-success">Перейти</a>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3 mb-4">
-            <div class="card h-100">
-                <div class="card-body text-center">
-                    <i class="fas fa-calendar-alt fa-3x text-warning mb-3"></i>
-                    <h5 class="card-title">Записи на прийом</h5>
-                    <p class="card-text">Планування та управління записами на прийом</p>
-                    <a asp-controller="Appointments" asp-action="Index" class="btn btn-warning">Перейти</a>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3 mb-4">
-            <div class="card h-100">
-                <div class="card-body text-center">
-                    <i class="fas fa-file-medical fa-3x text-info mb-3"></i>
-                    <h5 class="card-title">Медичні записи</h5>
-                    <p class="card-text">Ведення історії хвороби та медичних записів</p>
-                    <a asp-controller="MedicalRecords" asp-action="Index" class="btn btn-info">Перейти</a>
+                <div class="card-body">
+                    <p class="lead">
+                        <strong>Klinika</strong> - це комплексна електронна медична система, розроблена для 
+                        автоматизації та оптимізації робочих процесів медичних закладів.
+                    </p>
+                    
+                    <h4 class="mt-4">Основні можливості системи:</h4>
+                    <div class="row mt-3">
+                        <div class="col-md-6">
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">
+                                    <i class="fas fa-check text-success"></i> 
+                                    <strong>Управління пацієнтами:</strong> Повна база даних пацієнтів з демографічною інформацією
+                                </li>
+                                <li class="list-group-item">
+                                    <i class="fas fa-check text-success"></i> 
+                                    <strong>Управління лікарями:</strong> Профілі медичних працівників зі спеціалізаціями
+                                </li>
+                                <li class="list-group-item">
+                                    <i class="fas fa-check text-success"></i> 
+                                    <strong>Записи на прийом:</strong> Інтелектуальна система планування з контролем конфліктів
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6">
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">
+                                    <i class="fas fa-check text-success"></i> 
+                                    <strong>Медичні записи:</strong> Електронні картки пацієнтів з історією хвороб
+                                </li>
+                                <li class="list-group-item">
+                                    <i class="fas fa-check text-success"></i> 
+                                    <strong>Безпека даних:</strong> Автентифікація та авторизація користувачів
+                                </li>
+                                <li class="list-group-item">
+                                    <i class="fas fa-check text-success"></i> 
+                                    <strong>Інтуїтивний інтерфейс:</strong> Зручна навігація та швидкий доступ до інформації
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
-    
+    @if (User.Identity?.IsAuthenticated == true)
+    {
+        <!-- Quick Access Cards (only for authenticated users) -->
+        <div class="row">
+            <div class="col-md-3 mb-4">
+                <div class="card h-100">
+                    <div class="card-body text-center">
+                        <i class="fas fa-users fa-3x text-primary mb-3"></i>
+                        <h5 class="card-title">Пацієнти</h5>
+                        <p class="card-text">Управління інформацією про пацієнтів клініки</p>
+                        <a asp-controller="Patients" asp-action="Index" class="btn btn-primary">Перейти</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 mb-4">
+                <div class="card h-100">
+                    <div class="card-body text-center">
+                        <i class="fas fa-user-md fa-3x text-success mb-3"></i>
+                        <h5 class="card-title">Лікарі</h5>
+                        <p class="card-text">Управління інформацією про лікарів та їх спеціалізації</p>
+                        <a asp-controller="Doctors" asp-action="Index" class="btn btn-success">Перейти</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 mb-4">
+                <div class="card h-100">
+                    <div class="card-body text-center">
+                        <i class="fas fa-calendar-alt fa-3x text-warning mb-3"></i>
+                        <h5 class="card-title">Записи на прийом</h5>
+                        <p class="card-text">Планування та управління записами на прийом</p>
+                        <a asp-controller="Appointments" asp-action="Index" class="btn btn-warning">Перейти</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 mb-4">
+                <div class="card h-100">
+                    <div class="card-body text-center">
+                        <i class="fas fa-file-medical fa-3x text-info mb-3"></i>
+                        <h5 class="card-title">Медичні записи</h5>
+                        <p class="card-text">Ведення історії хвороби та медичних записів</p>
+                        <a asp-controller="MedicalRecords" asp-action="Index" class="btn btn-info">Перейти</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
 </div>

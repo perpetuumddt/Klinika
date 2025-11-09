@@ -203,11 +203,6 @@ namespace Klinika.Controllers
         {
             return _context.MedicalRecords.Any(e => e.Id == id);
         }
-
-        public async Task<ViewResult> Index()
-        {
-            throw new NotImplementedException();
-        }
     }
 }
 

@@ -1,9 +1,12 @@
 using Microsoft.EntityFrameworkCore;
 using Klinika.Models;
+using Klinika.Models.Identity;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace Klinika.Data
 {
-    public class KlinikaDbContext : DbContext
+    public class KlinikaDbContext : IdentityDbContext<ApplicationUser, IdentityRole<int>, int>
     {
         public KlinikaDbContext(DbContextOptions<KlinikaDbContext> options) : base(options)
         {
@@ -42,7 +45,8 @@ namespace Klinika.Data
                 .WithMany(d => d.MedicalRecords)
                 .HasForeignKey(mr => mr.DoctorId)
                 .OnDelete(DeleteBehavior.Restrict);
-            
+
+            //Indexes
             modelBuilder.Entity<Patient>()
                 .HasIndex(p => p.PhoneNumber)
                 .IsUnique();
@@ -58,7 +62,8 @@ namespace Klinika.Data
             modelBuilder.Entity<Appointment>()
                 .HasIndex(a => new { a.DoctorId, a.AppointmentDateTime })
                 .IsUnique();
-            
+
+            //Properties
             modelBuilder.Entity<Patient>()
                 .Property(p => p.RegistrationDate)
                 .HasDefaultValueSql("GETDATE()");
@@ -74,6 +79,40 @@ namespace Klinika.Data
             modelBuilder.Entity<MedicalRecord>()
                 .Property(mr => mr.RecordDate)
                 .HasDefaultValueSql("GETDATE()");
+
+            // Identity configuration
+            modelBuilder.Entity<ApplicationUser>(entity =>
+            {
+                // Email configuration
+                entity.Property(u => u.Email)
+                    .IsRequired()
+                    .HasMaxLength(256);
+
+                entity.HasIndex(u => u.Email)
+                    .IsUnique();
+
+                // PhoneNumber configuration
+                entity.Property(u => u.PhoneNumberUA)
+                    .IsRequired()
+                    .HasMaxLength(20);
+
+                entity.HasIndex(u => u.PhoneNumberUA)
+                    .IsUnique();
+
+                // FullName configuration
+                entity.Property(u => u.FullName)
+                    .IsRequired()
+                    .HasMaxLength(500);
+
+                // CreatedDate default value
+                entity.Property(u => u.CreatedDate)
+                    .HasDefaultValueSql("GETDATE()");
+
+                // IsActive default value
+                entity.Property(u => u.IsActive)
+                    .HasDefaultValue(true);
+            });
         }
     }
 }
+

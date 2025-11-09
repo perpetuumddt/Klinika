@@ -1,0 +1,202 @@
+@model Klinika.Models.SearchViewModel
+
+@{
+    ViewData["Title"] = "Розширений пошук";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h3 class="card-title">
+                        <i class="fas fa-search"></i> Пошук записів на прийом
+                    </h3>
+                </div>
+                <div class="card-body">
+                    <form asp-action="Results" method="post">
+                        
+                        <!-- Date/Time Search Section -->
+                        <div class="card mb-3">
+                            <div class="card-header">
+                                <h5><i class="fas fa-calendar"></i> Пошук за датою та часом</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group mb-3">
+                                            <label asp-for="DateFrom" class="form-label">Дата від</label>
+                                            <input asp-for="DateFrom" class="form-control" type="date" />
+                                            <small class="form-text text-muted">Початкова дата діапазону</small>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group mb-3">
+                                            <label asp-for="DateTo" class="form-label">Дата до</label>
+                                            <input asp-for="DateTo" class="form-control" type="date" />
+                                            <small class="form-text text-muted">Кінцева дата діапазону</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- List Selection Section -->
+                        <div class="card mb-3">
+                            <div class="card-header">
+                                <h5><i class="fas fa-list"></i> Пошук за списками елементів</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group mb-3">
+                                            <label class="form-label">Пацієнти</label>
+                                            <select asp-for="SelectedPatientIds" 
+                                                    class="form-control" 
+                                                    asp-items="ViewBag.Patients" 
+                                                    multiple 
+                                                    size="5">
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group mb-3">
+                                            <label class="form-label">Лікарі</label>
+                                            <select asp-for="SelectedDoctorIds" 
+                                                    class="form-control" 
+                                                    asp-items="ViewBag.Doctors" 
+                                                    multiple 
+                                                    size="5">
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group mb-3">
+                                            <label class="form-label">Статуси</label>
+                                            <select asp-for="SelectedStatuses" 
+                                                    class="form-control" 
+                                                    asp-items="ViewBag.AppointmentStatuses" 
+                                                    multiple 
+                                                    size="5">
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- String Search Section (StartsWith/EndsWith) -->
+                        <div class="card mb-3">
+                            <div class="card-header">
+                                <h5><i class="fas fa-font"></i> Пошук за початком/кінцем значення</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group mb-3">
+                                            <label asp-for="PatientNameStartsWith" class="form-label">
+                                                Ім'я пацієнта починається з
+                                            </label>
+                                            <input asp-for="PatientNameStartsWith" 
+                                                   class="form-control" 
+                                                   placeholder="Напр: Іва" />
+                                            <small class="form-text text-muted">
+                                                Пошук по імені або прізвищу
+                                            </small>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group mb-3">
+                                            <label asp-for="Diagnosis" class="form-label">
+                                                Ім'я пацієнта закінчується на
+                                            </label>
+                                            <input asp-for="Diagnosis" 
+                                                   class="form-control" />
+                                            <small class="form-text text-muted">
+                                                Пошук по імені або прізвищу
+                                            </small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group mb-3">
+                                            <label asp-for="DoctorSpecializationStartsWith" class="form-label">
+                                                Спеціалізація лікаря починається з
+                                            </label>
+                                            <input asp-for="DoctorSpecializationStartsWith" 
+                                                   class="form-control" />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group mb-3">
+                                            <label asp-for="DoctorName" class="form-label">
+                                                Скарги містять
+                                            </label>
+                                            <input asp-for="DoctorName" 
+                                                   class="form-control" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- JOIN Search Section (Medical Records) -->
+                        <div class="card mb-3">
+                            <div class="card-header">
+                                <h5><i class="fas fa-file-medical"></i> Пошук за медичними записами (JOIN)</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group mb-3">
+                                            <label asp-for="DiagnosisContains" class="form-label">
+                                                Діагноз містить (з медичних записів)
+                                            </label>
+                                            <input asp-for="DiagnosisContains" 
+                                                   class="form-control" 
+                                                   placeholder="Напр: ГРВІ" />
+                                            <small class="form-text text-muted">
+                                                Пошук буде виконано по медичних записах пацієнтів (JOIN операція)
+                                            </small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Action Buttons -->
+                        <div class="form-group mt-4">
+                            <button type="submit" class="btn btn-primary btn-lg">
+                                <i class="fas fa-search"></i> Виконати пошук
+                            </button>
+                            <button type="reset" class="btn btn-secondary btn-lg">
+                                <i class="fas fa-redo"></i> Скинути фільтри
+                            </button>
+                            <a asp-controller="Home" asp-action="Index" class="btn btn-outline-secondary btn-lg">
+                                <i class="fas fa-home"></i> На головну
+                            </a>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+
+            <!-- Help Section -->
+            <div class="card mt-3">
+                <div class="card-header bg-info text-white">
+                    <h5><i class="fas fa-info-circle"></i> Підказки</h5>
+                </div>
+                <div class="card-body">
+                    <ul>
+                        <li>Ви можете використовувати декілька фільтрів одночасно</li>
+                        <li>Пошук не чутливий до регістру</li>
+                        <li>Для вибору декількох елементів у списках утримуйте Ctrl</li>
+                        <li>Пошук за діагнозом виконує JOIN з таблицею медичних записів</li>
+                        <li>Результати обмежені до 100 записів</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

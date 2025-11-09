@@ -8,9 +8,43 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
+/*
 // Add Entity Framework
 builder.Services.AddDbContext<KlinikaDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+*/
+
+// ============================================================
+// MULTI-DATABASE CONFIGURATION
+// ============================================================
+var dbProvider = builder.Configuration.GetValue<string>("DatabaseProvider") ?? "SqlServer";
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+
+switch (dbProvider.ToLower())
+{
+    case "sqlite":
+        builder.Services.AddDbContext<KlinikaDbContext>(options =>
+            options.UseSqlite(connectionString ?? "Data Source=klinika.db"));
+        break;
+    
+    case "postgres":
+    case "postgresql":
+        builder.Services.AddDbContext<KlinikaDbContext>(options =>
+            options.UseNpgsql(connectionString ?? "Host=localhost;Database=KlinikaDb;Username=postgres;Password=postgres"));
+        break;
+    
+    case "inmemory":
+        builder.Services.AddDbContext<KlinikaDbContext>(options =>
+            options.UseInMemoryDatabase("KlinikaInMemoryDb"));
+        break;
+    
+    case "sqlserver":
+    default:
+        builder.Services.AddDbContext<KlinikaDbContext>(options =>
+            options.UseSqlServer(connectionString ?? 
+                                 "Server=(localdb)\\mssqllocaldb;Database=KlinikaDb;Trusted_Connection=true;MultipleActiveResultSets=true"));
+        break;
+}
 
 // Add Identity services
 builder.Services.AddIdentity<ApplicationUser, IdentityRole<int>>(options =>

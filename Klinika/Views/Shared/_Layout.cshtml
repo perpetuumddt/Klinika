@@ -50,6 +50,11 @@
                                 <i class="fas fa-file-medical"></i> Медичні записи
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-controller="Search" asp-action="Index">
+                                <i class="fas fa-search"></i> Пошук
+                            </a>
+                        </li>
                     }
                 </ul>
                 
@@ -107,12 +112,6 @@
 <footer class="border-top footer text-muted">
     <div class="container">
         &copy; 2025 - Klinika - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        @if (User.Identity?.IsAuthenticated == true)
-        {
-            <span class="float-end">
-                <i class="fas fa-circle text-success"></i> Онлайн: @User.Identity.Name
-            </span>
-        }
     </div>
 </footer>
 

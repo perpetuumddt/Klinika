@@ -44,11 +44,35 @@
                             </div>
                         }
                         
-                        @if (!string.IsNullOrWhiteSpace(Model.SearchCriteria.PatientNameStartsWith))
+                        @if (!string.IsNullOrWhiteSpace(Model.SearchCriteria.PatientLastName))
                         {
                             <div class="col-md-6">
-                                <strong>Ім'я пацієнта починається з:</strong> 
-                                "@Model.SearchCriteria.PatientNameStartsWith"
+                                <strong>Прізвище пацієнта:</strong> 
+                                "@Model.SearchCriteria.PatientLastName"
+                            </div>
+                        }
+                        
+                        @if (!string.IsNullOrWhiteSpace(Model.SearchCriteria.DoctorLastName))
+                        {
+                            <div class="col-md-6">
+                                <strong>Прізвище пацієнта:</strong> 
+                                "@Model.SearchCriteria.DoctorLastName"
+                            </div>
+                        }
+                        
+                        @if (!string.IsNullOrWhiteSpace(Model.SearchCriteria.DoctorSpecialization))
+                        {
+                            <div class="col-md-6">
+                                <strong>Спеціалізація починається з:</strong> 
+                                "@Model.SearchCriteria.DoctorSpecialization"
+                            </div>
+                        }
+                        
+                        @if (!string.IsNullOrWhiteSpace(Model.SearchCriteria.AppointmentType))
+                        {
+                            <div class="col-md-6">
+                                <strong>Тип прійому містить:</strong> 
+                                "@Model.SearchCriteria.AppointmentType"
                             </div>
                         }
                         
@@ -83,11 +107,10 @@
                                     <tr>
                                         <th>№</th>
                                         <th>Дата і час</th>
-                                        <th>Пацієнт</th>
+                                        <th>Пацієнт (FullName)</th>
                                         <th>Лікар (Спеціалізація)</th>
                                         <th>Тип прийому</th>
                                         <th>Статус</th>
-                                        <th>Скарги</th>
                                         <th>Діагнози</th>
                                         <th>Дії</th>
                                     </tr>
@@ -107,7 +130,9 @@
                                                 <strong>@item.Doctor.FullName</strong><br />
                                                 <small class="text-muted">@item.Doctor.Specialization</small>
                                             </td>
-                                            <td>@item.AppointmentType</td>
+                                            <td>
+                                                <span class="badge bg-secondary">@item.AppointmentType</span>
+                                            </td>
                                             <td>
                                                 <span class="badge bg-@(item.Status switch {
                                                     AppointmentStatus.Scheduled => "primary",
@@ -126,14 +151,6 @@
                                                         _ => "Невідомий"
                                                     })
                                                 </span>
-                                            </td>
-                                            <td>
-                                                @if (!string.IsNullOrWhiteSpace(item.Complaints))
-                                                {
-                                                    <small>@(item.Complaints.Length > 50 
-                                                        ? item.Complaints.Substring(0, 50) + "..." 
-                                                        : item.Complaints)</small>
-                                                }
                                             </td>
                                             <td>
                                                 @if (item.Patient.MedicalRecords.Any())
@@ -174,14 +191,6 @@
                                 </tbody>
                             </table>
                         </div>
-                        
-                        @if (Model.TotalResults >= 100)
-                        {
-                            <div class="alert alert-warning mt-3">
-                                <i class="fas fa-exclamation-triangle"></i>
-                                Показано перші 100 результатів. Уточніть параметри пошуку для більш точних результатів.
-                            </div>
-                        }
                     }
                     else
                     {

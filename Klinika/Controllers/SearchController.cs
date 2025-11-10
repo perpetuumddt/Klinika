@@ -73,34 +73,40 @@ namespace Klinika.Controllers
             }
 
             // ============================================================
-            // FILTER 3: Search by Beginning/End of Value
+            // FILTER 3: Text Search (Flexible: whole word, starts with, ends with, contains)
             // ============================================================
-            if (!string.IsNullOrWhiteSpace(model.PatientNameStartsWith))
+            
+            // Search by Patient LastName
+            if (!string.IsNullOrWhiteSpace(model.PatientLastName))
             {
-                var searchTerm = model.PatientNameStartsWith.Trim().ToLower();
+                var searchTerm = model.PatientLastName.Trim().ToLower();
                 query = query.Where(a => 
-                    a.Patient.FirstName.ToLower().StartsWith(searchTerm) ||
-                    a.Patient.LastName.ToLower().StartsWith(searchTerm));
+                    a.Patient.LastName.ToLower().Contains(searchTerm));
             }
             
-            if (!string.IsNullOrWhiteSpace(model.Diagnosis))
+            // Search by Doctor LastName
+            if (!string.IsNullOrWhiteSpace(model.DoctorLastName))
             {
-                var searchTerm = model.Diagnosis.Trim().ToLower();
+                var searchTerm = model.DoctorLastName.Trim().ToLower();
                 query = query.Where(a => 
-                    a.Patient.FirstName.ToLower().EndsWith(searchTerm) ||
-                    a.Patient.LastName.ToLower().EndsWith(searchTerm));
+                    a.Doctor.LastName.ToLower().Contains(searchTerm));
             }
             
-            if (!string.IsNullOrWhiteSpace(model.DoctorSpecializationStartsWith))
+            // Search by Doctor Specialization
+            if (!string.IsNullOrWhiteSpace(model.DoctorSpecialization))
             {
-                var searchTerm = model.DoctorSpecializationStartsWith.Trim().ToLower();
-                query = query.Where(a => a.Doctor.Specialization.ToLower().StartsWith(searchTerm));
+                var searchTerm = model.DoctorSpecialization.Trim().ToLower();
+                query = query.Where(a => 
+                    a.Doctor.Specialization.ToLower().Contains(searchTerm));
             }
             
-            if (!string.IsNullOrWhiteSpace(model.DoctorName))
+            // Search by Appointment Type
+            if (!string.IsNullOrWhiteSpace(model.AppointmentType))
             {
-                var searchTerm = model.DoctorName.Trim().ToLower();
-                query = query.Where(a => a.Complaints != null && a.Complaints.ToLower().Contains(searchTerm));
+                var searchTerm = model.AppointmentType.Trim().ToLower();
+                query = query.Where(a => 
+                    a.AppointmentType != null && 
+                    a.AppointmentType.ToLower().Contains(searchTerm));
             }
 
             // ============================================================

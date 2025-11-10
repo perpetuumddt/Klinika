@@ -88,52 +88,45 @@
                         <!-- String Search Section (StartsWith/EndsWith) -->
                         <div class="card mb-3">
                             <div class="card-header">
-                                <h5><i class="fas fa-font"></i> Пошук за початком/кінцем значення</h5>
+                                <h5><i class="fas fa-font"></i> Пошук за повним ім'ям пацієнта</h5>
                             </div>
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group mb-3">
-                                            <label asp-for="PatientNameStartsWith" class="form-label">
-                                                Ім'я пацієнта починається з
+                                            <label asp-for="PatientLastName" class="form-label">
+                                                Пошук по прізвищу пацієнта
                                             </label>
-                                            <input asp-for="PatientNameStartsWith" 
-                                                   class="form-control" 
-                                                   placeholder="Напр: Іва" />
-                                            <small class="form-text text-muted">
-                                                Пошук по імені або прізвищу
-                                            </small>
+                                            <input asp-for="PatientLastName" 
+                                                   class="form-control" />
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group mb-3">
-                                            <label asp-for="Diagnosis" class="form-label">
-                                                Ім'я пацієнта закінчується на
+                                            <label asp-for="AppointmentType" class="form-label">
+                                                Тип прийому
                                             </label>
-                                            <input asp-for="Diagnosis" 
+                                            <input asp-for="AppointmentType" 
                                                    class="form-control" />
-                                            <small class="form-text text-muted">
-                                                Пошук по імені або прізвищу
-                                            </small>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group mb-3">
-                                            <label asp-for="DoctorSpecializationStartsWith" class="form-label">
-                                                Спеціалізація лікаря починається з
+                                            <label asp-for="DoctorSpecialization" class="form-label">
+                                                Спеціалізація лікаря
                                             </label>
-                                            <input asp-for="DoctorSpecializationStartsWith" 
+                                            <input asp-for="DoctorSpecialization" 
                                                    class="form-control" />
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group mb-3">
-                                            <label asp-for="DoctorName" class="form-label">
-                                                Скарги містять
+                                            <label asp-for="DoctorLastName" class="form-label">
+                                                Прізвище лікаря
                                             </label>
-                                            <input asp-for="DoctorName" 
+                                            <input asp-for="DoctorLastName" 
                                                    class="form-control" />
                                         </div>
                                     </div>
@@ -144,7 +137,7 @@
                         <!-- JOIN Search Section (Medical Records) -->
                         <div class="card mb-3">
                             <div class="card-header">
-                                <h5><i class="fas fa-file-medical"></i> Пошук за медичними записами (JOIN)</h5>
+                                <h5><i class="fas fa-file-medical"></i> Пошук за медичними записами</h5>
                             </div>
                             <div class="card-body">
                                 <div class="row">
@@ -156,9 +149,6 @@
                                             <input asp-for="DiagnosisContains" 
                                                    class="form-control" 
                                                    placeholder="Напр: ГРВІ" />
-                                            <small class="form-text text-muted">
-                                                Пошук буде виконано по медичних записах пацієнтів (JOIN операція)
-                                            </small>
                                         </div>
                                     </div>
                                 </div>
@@ -179,22 +169,6 @@
                         </div>
 
                     </form>
-                </div>
-            </div>
-
-            <!-- Help Section -->
-            <div class="card mt-3">
-                <div class="card-header bg-info text-white">
-                    <h5><i class="fas fa-info-circle"></i> Підказки</h5>
-                </div>
-                <div class="card-body">
-                    <ul>
-                        <li>Ви можете використовувати декілька фільтрів одночасно</li>
-                        <li>Пошук не чутливий до регістру</li>
-                        <li>Для вибору декількох елементів у списках утримуйте Ctrl</li>
-                        <li>Пошук за діагнозом виконує JOIN з таблицею медичних записів</li>
-                        <li>Результати обмежені до 100 записів</li>
-                    </ul>
                 </div>
             </div>
         </div>
